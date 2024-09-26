@@ -9,29 +9,70 @@ function BIO() {
         interests: ['programming', 'RD']
     });
 
-    function handleNameInputChange(e) {
-        setPerson({
-            ...person,
-            name: e.target.value
+    const [form, setForm] = useState({
+        name: '',
+        surname: '',
+        age: 0
+    });
+
+const [isError, setError] = useState(false);
+
+    function handleInputChange(e) {
+        const { name, value } = e.target
+        setForm({
+            ...form,
+            [name]: value
         })
-        console.log(e.target.value);
     }
 
-    function handleSetNameBtnClick() {
-        console.log('нажата кнопка')
+    function handleBtnClick(key) {
+        if(!form[key]) {
+            setError(true);
+            return;
+        }
+        setError(false);
+        setPerson({
+            ...person,
+            [key]: form[key]
+        })
     }
+
+
 
 
 return(
     <div>
-        <input
-        type="text"
-        name=''
-        value={person.name}
-        onChange={handleNameInputChange} />
-        <button onClick={handleSetNameBtnClick}>
-            Задать имя
-        </button>
+        { isError ? (<p>Ошибка формы</p>) : '' }
+        <div>
+            <input
+            type="text"
+            name='name'
+            value={form.name}
+            onChange={handleInputChange} />
+            <button onClick={() => handleBtnClick('name')}>
+                Задать имя
+            </button>
+        </div>
+        <div>
+            <input
+            type="text"
+            name='surname'
+            value={form.surname}
+            onChange={handleInputChange} />
+            <button onClick={() => handleBtnClick('surname')}>
+                Задать фамилию
+            </button>
+        </div>
+        <div>
+            <input
+            type="number"
+            name='age'
+            value={form.age}
+            onChange={handleInputChange} />
+            <button onClick={() => handleBtnClick('age')}>
+                Задать возраст
+            </button>
+        </div>
         <p>Имя: {person.name}</p>
         <p>Фамилия: {person.surname}</p>
         <p>Возвраст: {person.age}</p>
