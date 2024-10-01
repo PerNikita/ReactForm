@@ -9,30 +9,7 @@ function BIO() {
         interests: ['programming', 'RD']
     });
 
-    const [form, setForm] = useState({
-        name: '',
-        surname: '',
-        age: 0,
-        sex: 'male'
-    })
-
-    const [isError, setError] = useState(false)
-
-
-    function handleInputChange(e) {
-        const {name, value} = e.target
-        setForm({
-            ...person,
-            [name]: value
-        })
-    }
-
-    function handleBtnClick(key) {
-        if(!form[key]){
-            setError(true);
-            return;
-        }
-        setError(false);
+    function handleNameInputChange(e) {
         setPerson({
             ...person,
             [key]: form[key]
@@ -40,56 +17,18 @@ function BIO() {
     }
 
 
+
+
 return(
     <div>
-        {isError ? (<p>Ошибка формы</p>) : ''} 
-       <div>
         <input
         type="text"
-        name='name'
-        value={form.name}
-        onChange={handleInputChange} />
-        <button onClick={() => handleBtnClick('name')}>
+        name=''
+        value={person.name}
+        onChange={handleNameInputChange} />
+        <button onClick={handleSetNameBtnClick}>
             Задать имя
         </button>
-        </div>
-        <div>
-        <input
-        type="text"
-        name='surname'
-        value={form.surname}
-        onChange={handleInputChange} />
-        <button onClick={() => handleBtnClick('surname')}>
-            Задать фамилию
-        </button>
-        </div>
-        <div>
-        <input
-        type="number"
-        name='age'
-        value={form.age}
-        onChange={handleInputChange} />
-        <button onClick={() => handleBtnClick('age')}>
-            Задать возраст
-        </button>
-        <p>
-        Пол:
-        <label>
-          <input type="radio"
-          name="sex"
-          value="Male"
-          checked={form.sex === 'male'} />
-          Мужской
-        </label>
-        <label>
-          <input type="radio"
-          name="sex"
-          value="Female"
-          checked={form.sex === 'female'} />
-          Женский
-        </label>
-      </p>
-        </div>
         <p>Имя: {person.name}</p>
         <p>Фамилия: {person.surname}</p>
         <p>Возвраст: {person.age}</p>
